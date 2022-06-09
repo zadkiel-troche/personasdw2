@@ -14,6 +14,9 @@
   </head>
   
   <body>
+    <?php
+      include('../libs/menu.php');
+    ?>
     <div class="container mt-4">
       <?php
         if (!($_POST) && !($_GET))
@@ -41,11 +44,49 @@
         }elseif ($_POST) {
           if ($_POST['id']==-1)
           {
-            $salida= agregarCiudad($link,$_POST);
-            include('list.php');
+            $errores=[];
+            $error=0;
+
+            if ($_POST['ciudad']=='') {
+              $error++;
+              array_push($errores, 'El campo Ciudad no puede estar vacio');
+            }
+
+            if ($error>0) {
+              echo "<div class='container errors' style='margin-top:50px; margin-bottom:30px; padding: 10px; border-radius: 7px; background-color: grey'><center><img src='https://cdn-icons-png.flaticon.com/512/753/753345.png' width='50px'/> <h4 style='color: white;'>Errores encontrados</h4><p style='color: white;'>";
+              $cont=count($errores);
+              for($i=0; $i<$cont; $i++){
+                echo "<span style='text-align: left;'>".$i." ❌ ".$errores[$i]."</span><br>";
+              }
+              echo "</p></center></div>";
+            }else{
+              $salida= agregarCiudad($link,$_POST);
+              include('list.php');
+            }
           } elseif ($_POST['id']!='') {
-            $salida= editarCiudad($link,$_POST);
-            include('list.php');
+
+            $errores=[];
+            $error=0;
+
+            if ($_POST['ciudad']=='') {
+              $error++;
+              array_push($errores, 'El campo Ciudad no puede estar vacio');
+            }
+
+            if ($error>0) {
+              echo "<div class='container errors' style='margin-top:50px; margin-bottom:30px; padding: 10px; border-radius: 7px; background-color: grey'><center><img src='https://cdn-icons-png.flaticon.com/512/753/753345.png' width='50px'/> <h4 style='color: white;'>Errores encontrados</h4><p style='color: white;'>";
+              $cont=count($errores);
+              for($i=0; $i<$cont; $i++){
+                echo "<span style='text-align: left;'>".$i." ❌ ".$errores[$i]."</span><br>";
+              }
+              echo "</p></center></div>";
+              echo "<div class='mb-3 mt-3'> 
+              <a href='$_SERVER[HTTP_REFERER]' class='btn btn-outline-primary col-4'>Ok, volver</a>
+              </div>";
+            }else{
+              $salida= editarCiudad($link,$_POST);
+              include('list.php');
+            }
           }
         }
       ?>

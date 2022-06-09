@@ -3,8 +3,6 @@
   require('../libs/ciudades.lib.php');
   require('../libs/personas.lib.php');
   $link=conectar();
-  //print_r($_POST);
-  //print_r($_GET);
 ?>
 <!doctype html>
 <html lang="es">
@@ -16,6 +14,9 @@
   </head>
 
   <body>
+    <?php
+      include('../libs/menu.php');
+    ?>
     <div class="container mt-4">
       <?php
         if (!($_POST) && !($_GET))
@@ -46,13 +47,99 @@
         }elseif ($_POST) {
           if ($_POST['id']==-1)
           {
-            $salida= agregarPersona($link,$_POST);
-            include('list.php');
-            //echo $salida;
-          } 
-          elseif ($_POST['id']!='') {
-            $salida= editarPersona($link,$_POST);
-            include('list.php');
+            $errores=[];
+            $error=0;
+
+            if ($_POST['cin']=='') {
+              $error++;
+              array_push($errores, 'El CIN no puede estar vacio');
+            }
+
+            if ($_POST['apellido']=='') {
+              $error++;
+              array_push($errores, 'El apellido no puede estar vacio');
+            }
+
+            if ($_POST['nombre']=='') {
+              $error++;
+              array_push($errores, 'El nombre no puede estar vacio');
+            }
+
+            if ($_POST['fenac']=='') {
+              $error++;
+              array_push($errores,"Debe cargar una fecha");
+            }
+
+            if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+              $error++;
+              array_push($errores,"El email debe ser valido");
+            }
+
+            if ($_POST['ciudad_id']=='Elija una opcion') {
+              $error++;
+              array_push($errores,"Debe seleccionar una ciudad");
+            }
+
+            if ($error>0) {
+              echo "<div class='container errors' style='margin-top:50px; margin-bottom:30px; padding: 10px; border-radius: 7px; background-color: grey'><center><img src='https://cdn-icons-png.flaticon.com/512/753/753345.png' width='50px'/> <h4 style='color: white;'>Errores encontrados</h4><p style='color: white;'>";
+              $cont=count($errores);
+              for($i=0; $i<$cont; $i++){
+                echo "<span style='text-align: left;'>".$i." ❌ ".$errores[$i]."</span><br>";
+              }
+              echo "</p></center></div>";
+            }else{
+              $salida= agregarPersona($link,$_POST);
+              include('list.php');
+              //echo $salida;
+            }
+          } elseif ($_POST['id']!='') {
+            $errores=[];
+            $error=0;
+
+            if ($_POST['cin']=='') {
+              $error++;
+              array_push($errores, 'El CIN no puede estar vacio');
+            }
+
+            if ($_POST['apellido']=='') {
+              $error++;
+              array_push($errores, 'El apellido no puede estar vacio');
+            }
+
+            if ($_POST['nombre']=='') {
+              $error++;
+              array_push($errores, 'El nombre no puede estar vacio');
+            }
+
+            if ($_POST['fenac']=='') {
+              $error++;
+              array_push($errores,"Debe cargar una fecha");
+            }
+
+            if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+              $error++;
+              array_push($errores,"El email debe ser valido");
+            }
+
+            if ($_POST['ciudad_id']=='Elija una opcion') {
+              $error++;
+              array_push($errores,"Debe seleccionar una ciudad");
+            }
+
+            if ($error>0) {
+              echo "<div class='container errors' style='margin-top:50px; margin-bottom:30px; padding: 10px; border-radius: 7px; background-color: grey'><center><img src='https://cdn-icons-png.flaticon.com/512/753/753345.png' width='50px'/> <h4 style='color: white;'>Errores encontrados</h4><p style='color: white;'>";
+              $cont=count($errores);
+              for($i=0; $i<$cont; $i++){
+                echo "<span style='text-align: left;'>".$i." ❌ ".$errores[$i]."</span><br>";
+              }
+              echo "</p></center></div>";
+              echo "<div class='mb-3 mt-3'> 
+              <a href='$_SERVER[HTTP_REFERER]' class='btn btn-outline-primary col-4'>Ok, volver</a>
+              </div>";
+            }else{
+              $salida= editarPersona($link,$_POST);
+              include('list.php');
+            }
           }
         }
 

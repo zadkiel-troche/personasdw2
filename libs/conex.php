@@ -2,7 +2,7 @@
   error_reporting(E_ALL ^ E_NOTICE);
 
   function conectar() {
-    $server="localhost";     //127.0.0.1
+    $server="localhost";
     $usuario="root";
     $pass="";
     $bdatos="dw2_personas";

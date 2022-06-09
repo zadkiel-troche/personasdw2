@@ -14,13 +14,13 @@
 
       <div class="container">
         <div class="row">
-          
+
           <div class="col-6">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Personas</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Cargar/Editar/Borrar</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h6 class="card-subtitle mb-2 text-muted">Puede Cargar/Editar/Borrar</h6>
+                <p class="card-text">Aqui podra ver la lista de personas registradas en su base de datos.</p>
                 <a href="personas/index.php" class="card-link btn btn-primary col-12">Ir a Personas</a>
               </div>
             </div> 
@@ -30,8 +30,8 @@
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Ciudades</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Cargar/Editar/Borrar</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h6 class="card-subtitle mb-2 text-muted">Puede Cargar/Editar/Borrar</h6>
+                <p class="card-text">Aqui podra ver la lista de ciudades registradas en su base de datos.</p>
                 <a href="ciudades/index.php" class="card-link btn btn-primary col-12">Ir a Ciudades</a>
               </div>
             </div> 

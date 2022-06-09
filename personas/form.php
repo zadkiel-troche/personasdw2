@@ -26,7 +26,7 @@
   <label for="ciudad_id">Ciudad</label><br>
   <input class="form-control" type="text" name="ciudad_id" value="<?php if ($data['ciudad_id']){ echo $data['ciudad_id'];} ?>" hidden>
   <select class="form-control mb-3" name="ciudad_id">
-    <option></option>
+    <option>Elija una opcion</option>
     <?php
     while ($d=mysqli_fetch_array($ciudades))
     {
